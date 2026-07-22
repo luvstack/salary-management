@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 **/node_modules/
+dist
+dist-ssr
+*.local
 
 # Environment variables
 .env
@@ -27,6 +30,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
 
 # Runtime files
 *.pid
@@ -45,6 +49,11 @@ pnpm-debug.log*
 .idea/
 *.swp
 *.swo
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # OS files
 .DS_Store

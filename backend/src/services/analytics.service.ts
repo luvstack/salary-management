@@ -160,7 +160,7 @@ export class Analytic {
             `;
 
             const distributionQuery = `
-                ${CURRENT_SALARIES_CTE}
+                ${CURRENT_SALARIES_CTE},
 
                 salary_ranges AS (
                     SELECT

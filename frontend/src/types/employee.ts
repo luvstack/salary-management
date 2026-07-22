@@ -30,7 +30,7 @@ export interface IEmployeeData {
     pagination: IPagination;
 }
 
-interface ISuccess {
+export interface ISuccess {
     success: boolean
 }
 
