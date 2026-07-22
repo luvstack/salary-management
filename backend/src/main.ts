@@ -2,10 +2,9 @@ import http from 'http';
 import logger from 'jet-logger';
 
 import EnvVars from './common/constants/env';
-import { connectDb, connectRedis, disconnectDb, disconnectRedis } from './db';
+import { connectDb, disconnectDb } from './db';
 import server from './server';
 import { initAssociations } from './models/associations';
-import { EmployeeModel } from './models/employee.model';
 
 const SERVER_START_MESSAGE =
   'Express server started on port: ' + EnvVars.Port.toString();
@@ -20,9 +19,8 @@ async function shutdown(
   await new Promise<void>((resolve) => httpServer.close(() => resolve()));
   logger.info('HTTP server closed');
 
-  // 3. Close DB and Redis.
+  // 3. Close DB.
   await disconnectDb();
-  await disconnectRedis();
 
   logger.info('Shutdown complete');
   process.exit(0);
@@ -39,7 +37,6 @@ async function bootstrap(): Promise<void> {
 
     initAssociations();
     await connectDb();
-    await connectRedis();
   } catch (err) {
     logger.err('Failed to initialize infrastructure');
     logger.err(err as Error);

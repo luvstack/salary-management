@@ -23,18 +23,4 @@ export const env = {
       process.env.DB_SSL === "true" ||
       /sslmode=require/i.test(process.env.DATABASE_URL || ""),
   },
-
-  retry: {
-    count: Number(process.env.COURIER_RETRY_COUNT) || 3,
-  },
-
-  redis: {
-    url: process.env.REDIS_URL || "",
-    host: process.env.REDIS_HOST || "localhost",
-    port: Number(process.env.REDIS_PORT) || 6379,
-    password: process.env.REDIS_PASSWORD || "",
-    tls:
-      process.env.REDIS_TLS === "true" ||
-      /^rediss:\/\//i.test(process.env.REDIS_URL || ""),
-  }
 };

@@ -19,7 +19,7 @@ const app = express();
 
 // **** Middleware **** //
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
@@ -85,26 +85,6 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
       requestId,
     });
   }
-});
-
-// **** FrontEnd Content **** //
-
-// Set views directory (html)
-const viewsDir = path.join(__dirname, 'views');
-app.set('views', viewsDir);
-
-// Set static directory (js and css).
-const staticDir = path.join(__dirname, 'public');
-app.use(express.static(staticDir));
-
-// Nav to users pg by default
-app.get('/', (_: Request, res: Response) => {
-  return res.redirect('/users');
-});
-
-// Redirect to login if not logged in.
-app.get('/users', (_: Request, res: Response) => {
-  return res.sendFile('users.html', { root: viewsDir });
 });
 
 /******************************************************************************
