@@ -38,12 +38,7 @@ export const employeesQuerySchema = Joi.object({
     .optional(),
 
   maxSalary: Joi.number()
-    .min(Joi.ref('minSalary'))
-    .optional()
-    .messages({
-      'number.min':
-        'maxSalary must be greater than or equal to minSalary',
-    }),
+    .optional(),
 
   sortBy: Joi.string()
     .valid(

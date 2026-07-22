@@ -23,8 +23,8 @@ router.get(
   EmployeeController.Employee.getEmployee,
 );
 
-router.post(
-  '/:id/salaries',
+router.put(
+  '/:id/salary',
   validateParams(getEmployeeParamsSchema),
   validateBody(updateEmployeeSalarySchema),
   EmployeeController.Employee.updateSalary,

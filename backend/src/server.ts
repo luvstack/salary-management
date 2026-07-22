@@ -18,6 +18,24 @@ import { env, NodeEnvs } from './common/constants/env';
 const app = express();
 
 // **** Middleware **** //
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+  );
+
+  // Handle preflight requests
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
 
 // Attach a unique request ID so every response (including errors) carries it.
 app.use((_req: Request, res: Response, next: NextFunction) => {

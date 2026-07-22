@@ -32,8 +32,10 @@ export class Employee {
         sortBy = 'employeeCode',
         sortOrder = 'ASC',
       } = query;
-  
-      const offset = (page - 1) * limit;
+
+      const pageNumber = Number(page);
+      const limitNumber = Number(limit);
+      const offset = (pageNumber - 1) * limitNumber;
   
       const conditions: string[] = [];
       const replacements: Record<
@@ -50,15 +52,15 @@ export class Employee {
       if (search) {
         conditions.push(`
           (
-            e."firstName" ILIKE :search
-            OR e."lastName" ILIKE :search
+            e."first_name" ILIKE :search
+            OR e."last_name" ILIKE :search
             OR CONCAT(
-              e."firstName",
+              e."first_name",
               ' ',
-              e."lastName"
+              e."last_name"
             ) ILIKE :search
             OR e."email" ILIKE :search
-            OR e."employeeCode" ILIKE :search
+            OR e."employee_code" ILIKE :search
           )
         `);
   
@@ -172,8 +174,8 @@ export class Employee {
         SELECT
           e.id,
           e."employee_code" AS "employeeCode",
-          e."first_name" AS "FirstName",
-          e."last_name" AS "LastName",
+          e."first_name" AS "firstName",
+          e."last_name" AS "lastName",
           e.email,
           e.department,
           e."job_title" AS "jobTitle",
@@ -225,7 +227,7 @@ export class Employee {
               type: QueryTypes.SELECT,
             },
           ),
-        ]);
+      ]);
   
       const total =
         countResult[0]?.total ?? 0;
@@ -234,8 +236,8 @@ export class Employee {
         data: employees as IEmployeesResponse['data'],
   
         pagination: {
-          page,
-          limit,
+          page: pageNumber,
+          limit: limitNumber,
           total,
           totalPages:
             Math.ceil(total / limit),

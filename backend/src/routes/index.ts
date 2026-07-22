@@ -5,7 +5,7 @@ import analytics from './analytics.route';
 
 const router = Router();
 
-router.use('/employee', employee);
+router.use('/employees', employee);
 router.use('/analytics', analytics)
 
 export default router;
