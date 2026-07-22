@@ -13,48 +13,54 @@ Build web-based employee salary management software for ACME, an organization wi
 ## Scope & Features (v1)
 
 ### Employee directory
-- Paginated list with search (name, email, employee ID)
-- Filter by country, department, status, and salary range
-- View and edit employee profile (name, department, country, job title, hire date, status)
+
+* Paginated list with search (name, email, employee ID)
+* Filter by country, department, status, and salary range
+* View employee profile (name, department, country, job title, hire date, status)
 
 ### Salary management
-- View current salary per employee (latest effective record)
-- Update salary with effective date — **append-only history**, no silent overwrites
-- View full salary history for an employee
+
+* View current salary per employee (latest currently effective record)
+* Update salary with effective date — **append-only history**, no silent overwrites
+* Support future-dated salary changes without incorrectly treating them as current salary
+* View full salary history for an employee
 
 ### Compensation insights
-- Org summary: headcount, total payroll, average / median / min / max salary
-- Breakdown by **department** and **country** (count, average, median, total payroll)
-- Salary distribution chart (histogram with configurable buckets)
+
+* Org summary by currency: headcount, total payroll, average / median / min / max salary
+* Breakdown by **department** and **country** (headcount, average, median, total payroll)
+* Salary distribution visualization using salary-range buckets
 
 ### Platform
-| Layer | Choice |
-|-------|--------|
-| Backend | Express + TypeScript, REST API |
-| Database | PostgreSQL (relational, indexed for 10k+ rows) |
-| ORM | Sequelize (models, migrations, seed scripts) |
-| Frontend | React (separate phase) |
-| Seed data | Script generating 10,000 realistic employees |
+
+| Layer     | Choice                                         |
+| --------- | ---------------------------------------------- |
+| Backend   | Express + TypeScript, REST API                 |
+| Database  | PostgreSQL (relational, indexed for 10k+ rows) |
+| ORM       | Sequelize (models, migrations, seed scripts)   |
+| Frontend  | React                                          |
+| Seed data | Script generating 10,000 realistic employees   |
 
 ## Deliberately Out of Scope (v1)
 
-| Excluded | Reason |
-|----------|--------|
-| Authentication / RBAC | Core HR workflows are the focus; auth is straightforward to add later without changing domain logic. |
-| Multi-currency normalization | Salaries stored in local currency; comparisons are per-currency to avoid FX rate dependencies. |
-| Bonuses, equity, benefits | Annual base salary answers the primary "how we pay" question; total comp is a follow-on. |
-| Raise approval workflows | HR Manager updates directly; workflow engine is a separate product feature. |
-| Payroll execution (tax, payslips) | This is **compensation management**, not payroll processing. |
-| Bulk CSV import/export | Seed script covers demo data; import/export once schema is stable. |
-| Audit log UI | Salary history table provides data-layer audit trail; dedicated UI deferred. |
+| Excluded                          | Reason                                                                                                                                    |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Authentication / RBAC             | Core HR workflows are the focus; authentication and authorization can be added later without changing the core compensation domain model. |
+| Multi-currency normalization      | Salaries are stored in local currency; analytics remain currency-specific to avoid introducing FX rate and conversion-date dependencies.  |
+| Bonuses, equity, benefits         | Annual base salary answers the primary "how we pay" question; total compensation is a follow-on feature.                                  |
+| Raise approval workflows          | HR Manager updates salaries directly; approval workflows are a separate product capability.                                               |
+| Payroll execution (tax, payslips) | This is **compensation management**, not payroll processing.                                                                              |
+| Bulk CSV import/export            | Seed scripts provide the assessment dataset; import/export can be added once data migration requirements are defined.                     |
+| Audit log UI                      | Append-only salary history preserves compensation changes at the data layer; a dedicated audit interface is deferred.                     |
 
 ## Non-Functional Requirements
 
-- Employee list/search under **500 ms** at 10k scale (indexed queries, server-side pagination)
-- Fast, deterministic tests for services and API routes
-- Layered architecture: routes → services → repositories → Sequelize → PostgreSQL
-- Incremental git commits showing design evolution
+* Employee listing and search should remain responsive at the **10,000-employee** target scale using indexed queries and server-side pagination
+* Fast, deterministic unit tests covering core business logic without requiring a live database
+* Layered architecture: routes/controllers → services → Sequelize / SQL → PostgreSQL
+* Maintainable, readable code with clear separation of responsibilities
+* Incremental git commits showing design and implementation evolution
 
 ## Success Criteria
 
-An HR Manager can find any employee in seconds, update a salary with history preserved, and answer org-level compensation questions — without opening Excel.
+An HR Manager can find any employee quickly, review their compensation history, update or schedule a salary change with history preserved, and answer organization-level compensation questions across currencies, departments, and countries — without opening Excel.

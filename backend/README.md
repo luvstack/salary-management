@@ -1,39 +1,105 @@
-## About
+# Backend
 
-This project was created with [express-generator-typescript](https://github.com/seanpmaxwell/express-generator-typescript).
+REST API for the ACME Employee Salary Management system built with **Node.js, Express, TypeScript, Sequelize, and PostgreSQL**.
 
-## Available Scripts
+## Prerequisites
 
-### `npm run clean-install`
+* Node.js
+* npm
+* PostgreSQL
 
-Remove the existing `node_modules/` folder, `package-lock.json`, and reinstall all library modules.
+## Setup
 
-### `npm run dev` 
+Install dependencies:
 
-Run the server in development with hot reloading and browser refresh (see `package.json` for all `npm run dev` variations)<br/>
+```bash
+npm install
+```
 
-**IMPORTANT** development mode uses `swc` for performance reasons which DOES NOT check for typescript errors. Run `npm run type-check` to check for type errors. NOTE: you should use your IDE to prevent most type errors.
+Create the environment file and configure your PostgreSQL connection:
 
-### `npm test`
+```env
+NODE_ENV=development
+PORT=3000
 
-Run unit-tests with <a href="https://vitest.dev/guide/">vitest</a>.
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=<database_name>
+DB_USER=<database_user>
+DB_PASSWORD=<database_password>
+```
 
-### `npm run lint`
+Update the variable names above if your local `.env` configuration uses different names.
 
-Check for linting errors.
+## Database
 
-### `npm run build`
+Create the PostgreSQL database, then run migrations:
 
-Build the project for production.
+```bash
+npm run migrate:up
+```
 
-### `npm start`
+Seed the database with **10,000 employees and salary records**:
 
-Run the production build (Must be built first).
+```bash
+npm run seed
+```
 
-### `npm run type-check`
+> Use the migration and seed commands defined in `package.json` if they differ from the commands above.
 
-Check for typescript errors.
+## Run
 
-## Additional Notes
+Start the development server:
 
-- If `npm run dev` gives you issues with bcrypt on MacOS you may need to run: `npm rebuild bcrypt --build-from-source`.
+```bash
+npm run dev
+```
+
+## API Base URL
+
+Local development:
+
+`http://localhost:<PORT>/api/v1`
+
+Production:
+
+`<deployed-backend-url>`
+
+## Tests
+
+Run unit tests:
+
+```bash
+npm test
+```
+
+Tests use mocked database interactions to remain fast and deterministic.
+
+## Core APIs
+
+The backend provides APIs for:
+
+* Employee listing, search, filtering, sorting, and pagination
+* Employee details and salary history
+* Effective-dated salary updates
+* Compensation analytics
+
+## Project Structure
+
+```text
+src/
+├── controllers/
+├── services/
+├── models/
+├── routes/
+├── migrations/
+├── seeders/
+├── common/
+└── types/
+```
+
+## Key Design
+
+Salary changes are stored as **effective-dated records** instead of overwriting previous salaries.
+
+The current salary is determined from the latest salary record effective on or before the current date, preserving complete salary history and supporting future-dated salary changes.
