@@ -28,6 +28,7 @@ module.exports = {
 
       employeeCode: {
         type: DataTypes.STRING(20),
+        field: 'employee_code',
         allowNull: false,
         unique: true,
         defaultValue: Sequelize.literal(
@@ -37,11 +38,13 @@ module.exports = {
 
       firstName: {
         type: DataTypes.STRING(100),
+        field: 'first_name',
         allowNull: false,
       },
 
       lastName: {
         type: DataTypes.STRING(100),
+        field: 'last_name',
         allowNull: false,
       },
 
@@ -58,6 +61,7 @@ module.exports = {
 
       jobTitle: {
         type: DataTypes.STRING(150),
+        field: 'job_title',
         allowNull: false,
       },
 
@@ -68,6 +72,7 @@ module.exports = {
 
       hireDate: {
         type: DataTypes.DATEONLY,
+        field: 'hire_date',
         allowNull: false,
       },
 
@@ -79,12 +84,14 @@ module.exports = {
 
       createdAt: {
         type: DataTypes.DATE,
+        field: 'created_at',
         allowNull: false,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
 
       updatedAt: {
         type: DataTypes.DATE,
+        field: 'updated_at',
         allowNull: false,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
@@ -107,6 +114,7 @@ module.exports = {
 
       employeeId: {
         type: DataTypes.UUID,
+        field: 'employee_id',
         allowNull: false,
 
         references: {
@@ -120,6 +128,7 @@ module.exports = {
 
       baseSalary: {
         type: DataTypes.DECIMAL(15, 2),
+        field: 'base_salary',
         allowNull: false,
       },
 
@@ -130,6 +139,7 @@ module.exports = {
 
       effectiveFrom: {
         type: DataTypes.DATEONLY,
+        field: 'effective_from',
         allowNull: false,
       },
 
@@ -140,6 +150,7 @@ module.exports = {
 
       createdAt: {
         type: DataTypes.DATE,
+        field: 'created_at',
         allowNull: false,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
@@ -172,9 +183,10 @@ module.exports = {
      */
     await queryInterface.addIndex(
       "employee_salaries",
-      ["employeeId", "effectiveFrom"],
+      ["employee_id", "effective_from"],
       {
-        name: "idx_employee_salaries_employee_effective",
+        name: "uq_employee_salaries_employee_effective",
+        unique: true,
       }
     );
   },

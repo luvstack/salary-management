@@ -1,0 +1,1 @@
+export * as EmployeeController from './employee.controller';

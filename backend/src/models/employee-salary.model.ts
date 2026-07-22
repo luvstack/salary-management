@@ -42,6 +42,7 @@ import {
       employeeId: {
         type: DataTypes.UUID,
         allowNull: false,
+        field: 'employee_id',
   
         references: {
           model: 'employees',
@@ -54,6 +55,7 @@ import {
   
       baseSalary: {
         type: DataTypes.DECIMAL(15, 2),
+        field: 'base_salary',
         allowNull: false,
       },
   
@@ -64,6 +66,7 @@ import {
   
       effectiveFrom: {
         type: DataTypes.DATEONLY,
+        field: 'effective_from',
         allowNull: false,
       },
   
@@ -75,6 +78,7 @@ import {
   
       createdAt: {
         type: DataTypes.DATE,
+        field: 'created_at',
         defaultValue: DataTypes.NOW,
       },
     },

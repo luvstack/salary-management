@@ -4,6 +4,8 @@ import logger from 'jet-logger';
 import EnvVars from './common/constants/env';
 import { connectDb, connectRedis, disconnectDb, disconnectRedis } from './db';
 import server from './server';
+import { initAssociations } from './models/associations';
+import { EmployeeModel } from './models/employee.model';
 
 const SERVER_START_MESSAGE =
   'Express server started on port: ' + EnvVars.Port.toString();
@@ -28,6 +30,14 @@ async function shutdown(
 
 async function bootstrap(): Promise<void> {
   try {
+    /*
+     * Register Sequelize model associations.
+     *
+     * This does not connect to PostgreSQL.
+     * It only registers ORM relationship metadata.
+     */
+
+    initAssociations();
     await connectDb();
     await connectRedis();
   } catch (err) {

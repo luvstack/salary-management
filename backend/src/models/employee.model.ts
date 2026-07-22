@@ -52,6 +52,7 @@ import {
   
       employeeCode: {
         type: DataTypes.STRING(20),
+        field: 'employee_code',
         allowNull: false,
         unique: true,
   
@@ -65,11 +66,13 @@ import {
   
       firstName: {
         type: DataTypes.STRING(100),
+        field: 'first_name',
         allowNull: false,
       },
   
       lastName: {
         type: DataTypes.STRING(100),
+        field: 'last_name',
         allowNull: false,
       },
   
@@ -86,6 +89,7 @@ import {
   
       jobTitle: {
         type: DataTypes.STRING(150),
+        field: 'job_title',
         allowNull: false,
       },
   
@@ -96,6 +100,7 @@ import {
   
       hireDate: {
         type: DataTypes.DATEONLY,
+        field: 'hire_date',
         allowNull: false,
       },
   
@@ -109,11 +114,13 @@ import {
   
       createdAt: {
         type: DataTypes.DATE,
+        field: 'created_at',
         defaultValue: DataTypes.NOW,
       },
   
       updatedAt: {
         type: DataTypes.DATE,
+        field: 'updated_at',
         defaultValue: DataTypes.NOW,
       },
     },

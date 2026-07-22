@@ -7,7 +7,7 @@ import morgan from 'morgan';
 import path from 'path';
 
 import { RouteError } from '@src/common/utils/route-errors';
-// import routes from '@src/routes';
+import routes from '@src/routes';
 
 import { env, NodeEnvs } from './common/constants/env';
 
@@ -43,7 +43,8 @@ if (env.nodeEnv === NodeEnvs.PRODUCTION) {
   app.use(helmet());
 }
 
-
+// Add APIs, must be after middleware
+app.use('/api/v1', routes); // e.g. POST /api/v1/employees
 
 // Unified error handler — single response shape: { code, message, details?, requestId }
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {

@@ -2,6 +2,7 @@ import logger from 'jet-logger';
 import { Options, Sequelize } from 'sequelize';
 
 import { env } from '../../config/env';
+import { initAssociations } from '@src/models/associations';
 
 function buildOptions(): Options {
   return {
@@ -22,7 +23,6 @@ function buildOptions(): Options {
       : undefined,
   };
 }
-console.log('db url', env.db.url);
 
 export const sequelize = env.db.url
   ? new Sequelize(env.db.url, buildOptions())
