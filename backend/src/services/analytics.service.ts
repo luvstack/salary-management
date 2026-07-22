@@ -1,19 +1,15 @@
-import { QueryTypes, UniqueConstraintError } from 'sequelize';
+import { QueryTypes } from 'sequelize';
 
 import HttpStatusCodes from '@src/common/constants/HttpStatusCodes';
 import { RouteError } from '@src/common/utils/route-errors';
 import logger from 'jet-logger';
 import {
- IUpdateEmployeeSalary,
- IEmployeeSalary,
  ICompensationAnalyticsResponse,
  ICompensationSummary,
  ICompensationBreakdown,
  ISalaryDistribution
 } from '@src/types';
 import { sequelize } from '@src/db';
-import { EmployeeModel } from '@src/models/employee.model';
-import { EmployeeSalaryModel } from '@src/models/employee-salary.model';
 
 export class Analytic {
     static async getCompensationAnalytics():Promise<ICompensationAnalyticsResponse> {

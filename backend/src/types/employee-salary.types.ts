@@ -11,7 +11,8 @@ export interface IEmployeeSalary {
 export interface IUpdateEmployeeSalary
   extends Pick<
     IEmployeeSalary,
-     'currency' | 'effectiveFrom' | 'reason'
+     'currency' | 'effectiveFrom'
   > {
     baseSalary: number
+    reason?: string
 }
