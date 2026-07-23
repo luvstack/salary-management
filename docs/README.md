@@ -55,3 +55,5 @@ Detailed requirements, architecture, engineering trade-offs, and representative 
 ## Deployment
 
 **Application:** https://salary-management-iota.vercel.app
+
+**Video Demo:** https://www.loom.com/share/441b78d668ae4ab4ba83f8a59d492d0c
