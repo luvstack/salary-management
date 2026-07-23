@@ -54,6 +54,4 @@ Detailed requirements, architecture, engineering trade-offs, and representative 
 
 ## Deployment
 
-**Application:** `<deployed-url>`
-
-**Video Demo:** `<video-demo-url>`
+**Application:** https://salary-management-iota.vercel.app
